@@ -1,0 +1,22 @@
+﻿@page
+@model OrderOps.Admin.Pages.Reports.IndexModel
+
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<h1>Reports</h1>
+
+<div class="list-group">
+    <a asp-page="TopProducts" class="list-group-item list-group-item-action">
+        Top Products
+    </a>
+
+    <a asp-page="SalesByCustomer" class="list-group-item list-group-item-action">
+        Sales by Customer
+    </a>
+
+    <a asp-page="LowStock" class="list-group-item list-group-item-action">
+        Low Stock
+    </a>
+</div>

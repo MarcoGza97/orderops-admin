@@ -1,0 +1,30 @@
+﻿@page
+@model OrderOps.Admin.Pages.Reports.SalesByCustomerModel
+
+@{
+    ViewData["Title"] = "Sales by Customer";
+}
+
+<h1>Sales by Customer</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th class="text-end">Orders</th>
+            <th class="text-end">Revenue</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Customers)
+        {
+            <tr>
+                <td>@item.CustomerName</td>
+                <td class="text-end">@item.OrdersCount</td>
+                <td class="text-end">@item.Revenue.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-page="Index" class="btn btn-secondary">Back</a>
