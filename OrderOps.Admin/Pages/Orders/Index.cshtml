@@ -1,0 +1,39 @@
+﻿@page
+@model OrderOps.Admin.Pages.Orders.IndexModel
+
+<h1>Orders</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create Order</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th class="text-end">Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Orders)
+        {
+            <tr>
+                <td>@order.CustomerName</td>
+                <td>@order.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@order.Status</td>
+                <td class="text-end">@order.Total.ToString("C")</td>
+                <td class="text-end">
+                    <a asp-page="Details" asp-route-id="@order.Id">Details</a>
+                    @if (order.Status != "3")//Cancelled
+                    {
+                        <span>|</span>
+                        <a asp-page="Cancel" asp-route-id="@order.Id">Cancel</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
