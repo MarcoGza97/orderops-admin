@@ -1,0 +1,56 @@
+﻿@page
+@model OrderOps.Admin.Pages.Orders.CreateModel
+
+@{
+    ViewData["Title"] = "Create Order";
+}
+
+<h1>Create Order</h1>
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="Order.CustomerId" class="form-label">Customer</label>
+        <select asp-for="Order.CustomerId" asp-items="Model.Customers" class="form-select">
+            <option value="">Select customer</option>
+        </select>
+    </div>
+
+    <h4>Items</h4>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th style="width: 180px;">Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < 5; i++)
+            {
+                <tr>
+                    <td>
+                        <select name="Order.Items[@i].ProductId" class="form-select">
+                            <option value="">Select product</option>
+                            @foreach (var product in Model.Products)
+                            {
+                                <option value="@product.Value">@product.Text</option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <input name="Order.Items[@i].Quantity"
+                               type="number"
+                               min="0"
+                               class="form-control"
+                               value="0" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Create Order</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
