@@ -8,11 +8,12 @@ using OrderOps.Infrastructure.Data;
 using OrderOps.Infrastructure.Repositories.Customers;
 using OrderOps.Infrastructure.Repositories.Orders;
 using OrderOps.Infrastructure.Repositories.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TinyBlueWhale.EngineQuery.Core.QueryBuilding;
+using TinyBlueWhale.EngineQuery.Metadata.EntityFramework.Resolvers;
+using TinyBlueWhale.EngineQuery.SqlServer.Capabilities;
+using TinyBlueWhale.EngineQuery.SqlServer.Compilation;
+using TinyBlueWhale.EngineQuery.SqlServer.Dialects;
+
 
 namespace OrderOps.Infrastructure
 {
@@ -23,6 +24,20 @@ namespace OrderOps.Infrastructure
             services.AddDbContext<OrderOpsDbContext>(options =>
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection")));
+
+
+            services.AddScoped<QueryBuilder>(serviceProvider =>
+            {
+                var dbContext = serviceProvider.GetRequiredService<OrderOpsDbContext>();
+
+                var metadataResolver = new EntityFrameworkMetadataResolver(dbContext.Model);
+
+                return new QueryBuilder(
+                    new SqlServerQueryCompiler(
+                        new SqlServerDatabaseDialect(),
+                        new SqlServerProviderCapabilities()),
+                    metadataResolver);
+            });
 
             services.AddScoped<SqlConnectionFactory>();
 
