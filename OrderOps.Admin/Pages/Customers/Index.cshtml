@@ -1,0 +1,43 @@
+﻿@page
+@model OrderOps.Admin.Pages.Customers.IndexModel
+
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<h1>Customers</h1>
+
+@if (TempData["SuccessMessage"] is not null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create Customer</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th class="text-end">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model.Customers)
+        {
+            <tr>
+                <td>@customer.Name</td>
+                <td>@customer.Email</td>
+                <td class="text-end">
+                    <a asp-page="Details" asp-route-id="@customer.Id">Details</a> |
+                    <a asp-page="Edit" asp-route-id="@customer.Id">Edit</a> |
+                    <a asp-page="Delete" asp-route-id="@customer.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
