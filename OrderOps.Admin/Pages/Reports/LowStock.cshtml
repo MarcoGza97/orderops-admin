@@ -1,0 +1,39 @@
+﻿@page
+@model OrderOps.Admin.Pages.Reports.LowStockModel
+
+@{
+    ViewData["Title"] = "Low Stock";
+}
+
+<h1>Low Stock</h1>
+
+<form method="get" class="row mb-3">
+    <div class="col-md-3">
+        <label asp-for="Threshold" class="form-label"></label>
+        <input asp-for="Threshold" class="form-control" type="number" min="1" />
+    </div>
+
+    <div class="col-md-3 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary">Apply</button>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th class="text-end">Stock</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td class="text-end">@item.Stock</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-page="Index" class="btn btn-secondary">Back</a>
