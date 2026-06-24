@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OrderOps.Application.Customers.Interfaces;
 using OrderOps.Application.Products.Interfaces;
 using OrderOps.Infrastructure.Data;
+using OrderOps.Infrastructure.Repositories.Customers;
 using OrderOps.Infrastructure.Repositories.Products;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,9 @@ namespace OrderOps.Infrastructure
 
             services.AddScoped<IProductReadRepository, ProductReadRepository>();
             services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
+
+            services.AddScoped<ICustomerReadRepository, CustomerReadRepository>();
+            services.AddScoped<ICustomerWriteRepository, CustomerWriteRepository>();
 
 
             return services;
