@@ -8,6 +8,8 @@ using OrderOps.Application.Orders.Interfaces;
 using OrderOps.Application.Orders.Services;
 using OrderOps.Application.Products.Interfaces;
 using OrderOps.Application.Products.Services;
+using OrderOps.Application.Reports.Interfaces;
+using OrderOps.Application.Reports.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,7 @@ namespace OrderOps.Application
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IReportService, ReportService>();
 
             return services;
         }
